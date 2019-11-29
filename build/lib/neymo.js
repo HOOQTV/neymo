@@ -23,22 +23,18 @@ var _uuid2 = _interopRequireDefault(_uuid);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { return step("next", value); }, function (err) { return step("throw", err); }); } } return step("next"); }); }; }
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /** Class representing Neymo */
-
 var Neymo = function () {
     /**
      * Constructs Neymo
      *
      * @param {String} name - The name.
      */
-
     function Neymo(key, secret, url) {
-        var options = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
-
         _classCallCheck(this, Neymo);
 
         if (!key || !secret) {
@@ -49,14 +45,14 @@ var Neymo = function () {
             api_secret: secret
         };
         this.url = url;
-        this.client = new _blackadder2.default(options);
+        this.client = new _blackadder2.default({ retries: 0 });
     }
 
     _createClass(Neymo, [{
         key: 'send',
         value: function () {
-            var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
-                var options = arguments.length <= 0 || arguments[0] === undefined ? { type: 'sms' } : arguments[0];
+            var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+                var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { type: 'sms' };
                 var payload, headers, key;
                 return regeneratorRuntime.wrap(function _callee$(_context) {
                     while (1) {
@@ -91,17 +87,17 @@ var Neymo = function () {
                 }, _callee, this);
             }));
 
-            function send(_x2) {
-                return ref.apply(this, arguments);
+            function send() {
+                return _ref.apply(this, arguments);
             }
 
             return send;
         }()
     }, {
         key: 'conclude',
-        value: function conclude(_ref) {
-            var body = _ref.body;
-            var response = _ref.response;
+        value: function conclude(_ref2) {
+            var body = _ref2.body,
+                response = _ref2.response;
 
             // FIXME; transform to a sensible object
             return body;
